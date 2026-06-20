@@ -1,1 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Karam 🤍</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #060913 !important; /* Forces the deep night sky background */
+            color: #f1f5f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+        }
 
+        /* Fixed background overlay for stars & hearts */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* Styling for floating stars and hearts */
+        .particle {
+            position: absolute;
+            bottom: -30px;
+            font-size: var(--size);
+            opacity: var(--opacity);
+            animation: floatUp var(--duration) linear infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: var(--opacity); }
+            90% { opacity: var(--opacity); }
+            100% {
+                transform: translateY(-120vh) translateX(var(--drift)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .scroll-container {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 2; /* Ensures text stays visible on top */
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            font-weight: 300;
+            padding: 40px 0;
+            box-sizing: border-box;
+        }
+
+        .indicator {
+            font-size: 0.9rem;
+            color: #64748b;
+            letter-spacing: 2px;
+            margin-top: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .moon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Target for JavaScript to inject stars -->
+    <div class="background-animation" id="bg-animation"></div>
+
+    <div class="scroll-container">
+        
+        <div class="section">
+            <div>
+                <p>Hi, Karam. 🤍</p>
+                <div class="indicator">↓↓ scroll down ↓↓</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <p>I know your mind gets noisy sometimes.</p>
+        </div>
+
+        <div class="section">
+            <p>I know you forget little things,</p>
+        </div>
+
+        <div class="section">
+            <p>get lost in your thoughts,</p>
+        </div>
+
+        <div class="section">
+            <p>and carry more in your head than you tell anyone.</p>
+        </div>
+
+        <div class="section">
+            <p>So...</p>
+        </div>
+
+        <div class="section">
+            <p>I made this little place.</p>
+        </div>
+
+        <div class="section">
+            <p>Not to fix you.</p>
+        </div>
+
+        <div class="section">
+            <p>Not because anything is wrong with you.</p>
+        </div>
+
+        <div class="section">
+            <p>Just so whenever life feels a bit too loud,</p>
+        </div>
+
+        <div class="section">
+            <p>you can come here,</p>
+        </div>
+
+        <div class="section">
+            <p>slow down,</p>
+        </div>
+
+        <div class="section">
+            <p>and remember that someone is quietly standing beside you.</p>
+        </div>
+
+        <div class="section">
+            <p>Take one deep breath.</p>
+        </div>
+
+        <div class="section">
+            <p>There's nowhere else you need to be right now.</p>
+        </div>
+
+        <div class="section">
+            <div>
+                <div class="moon">🌙</div>
+                <p style="font-style: italic; color: #cbd5e1;">Just keep scrolling.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <p style="color: #f43f5e; font-weight: 500; font-size: 1.5rem;">I am always here for you, Karam. ❤️</p>
+        </div>
+
+    </div>
+
+    <!-- Script that forces tiny hearts and stars to generate -->
+    <script>
+        const bg = document.getElementById('bg-animation');
+        const items = ['⭐', '✨', '🤍', '❤️', '•'];
+        
+        for (let i = 0; i < 40; i++) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.innerText = items[Math.floor(Math.random() * items.length)];
+            
+            const size = (Math.random() * 12 + 8) + 'px';
+            const opacity = Math.random() * 0.6 + 0.2;
+            const duration = (Math.random() * 12 + 10) + 's';
+            const delay = (Math.random() * -20) + 's'; 
+            const left = Math.random() * 100 + 'vw';
+            const drift = (Math.random() * 120 - 60) + 'px';
+
+            p.style.setProperty('--size', size);
+            p.style.setProperty('--opacity', opacity);
+            p.style.setProperty('--duration', duration);
+            p.style.setProperty('--delay', delay);
+            p.style.setProperty('--drift', drift);
+            p.style.left = left;
+
+            bg.appendChild(p);
+        }
+    </script>
+
+</body>
+</html>
