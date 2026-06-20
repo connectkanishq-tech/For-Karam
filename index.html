@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You 🤍</title>
+    <title>For Karam 🤍</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: #0b0f19; /* Deep calming dark background */
+            background: #060913; /* Night sky dark background */
             color: #f1f5f9;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -16,7 +16,48 @@
             align-items: center;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            position: relative;
         }
+
+        /* Background elements container */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* CSS for floating stars and hearts */
+        .particle {
+            position: absolute;
+            bottom: -20px;
+            font-size: var(--size);
+            opacity: var(--opacity);
+            animation: floatUp var(--duration) linear infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: var(--opacity);
+            }
+            90% {
+                opacity: var(--opacity);
+            }
+            100% {
+                transform: translateY(-110vh) translateX(var(--drift)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
         .scroll-container {
             width: 100%;
             max-width: 600px;
@@ -25,7 +66,10 @@
             align-items: center;
             padding: 0 20px;
             box-sizing: border-box;
+            position: relative;
+            z-index: 2; /* Content sits above stars */
         }
+
         .section {
             min-height: 100vh;
             display: flex;
@@ -38,6 +82,7 @@
             padding: 40px 0;
             box-sizing: border-box;
         }
+
         .indicator {
             font-size: 0.9rem;
             color: #64748b;
@@ -45,11 +90,13 @@
             margin-top: 20px;
             animation: bounce 2s infinite;
         }
+
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
             40% { transform: translateY(-10px); }
             60% { transform: translateY(-5px); }
         }
+
         .moon {
             font-size: 3rem;
             margin-bottom: 10px;
@@ -58,12 +105,16 @@
 </head>
 <body>
 
+    <!-- Background Stars and Hearts Elements -->
+    <div class="background-animation" id="bg-animation"></div>
+
     <div class="scroll-container">
         
         <div class="section">
             <div>
-                <p>Hi, Love. 🤍</p>
-                <div class="indicator">↓↓ scroll down ↓↓</div>
+                <!-- Karam ka naam yahan add kar diya hai -->
+                <p>Hi, Karam. 🤍</p>
+                <div class="indicator">↓↓ scroll down ↓ bookkeeping</div>
             </div>
         </div>
 
@@ -129,10 +180,42 @@
         </div>
 
         <div class="section">
-            <p style="color: #f43f5e; font-weight: 500; font-size: 1.5rem;">I am always here for you. ❤️</p>
+            <p style="color: #f43f5e; font-weight: 500; font-size: 1.5rem;">I am always here for you, Karam. ❤️</p>
         </div>
 
     </div>
+
+    <!-- Script to auto-generate tiny hearts and stars randomly -->
+    <script>
+        const bg = document.getElementById('bg-animation');
+        const particles = ['⭐', '✨', '🤍', '❤️', '•'];
+        const pCount = 45; // Total number of floating items
+
+        for (let i = 0; i < pCount; i++) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            
+            // Randomly picking star or heart
+            p.innerText = particles[Math.floor(Math.random() * particles.length)];
+            
+            // Random positioning and timing variables
+            const size = (Math.random() * 12 + 6) + 'px';
+            const opacity = Math.random() * 0.5 + 0.2;
+            const duration = (Math.random() * 15 + 10) + 's';
+            const delay = (Math.random() * -20) + 's'; // Negative delay so they start immediately on load
+            const left = Math.random() * 100 + 'vw';
+            const drift = (Math.random() * 100 - 50) + 'px';
+
+            p.style.setProperty('--size', size);
+            p.style.setProperty('--opacity', opacity);
+            p.style.setProperty('--duration', duration);
+            p.style.setProperty('--delay', delay);
+            p.style.setProperty('--drift', drift);
+            p.style.left = left;
+
+            bg.appendChild(p);
+        }
+    </script>
 
 </body>
 </html>
